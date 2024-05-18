@@ -5,7 +5,6 @@ import faewulf.antiraidfarm.utils.IPlayerDataSaver;
 import faewulf.antiraidfarm.utils.RaidData;
 import faewulf.antiraidfarm.utils.permissions;
 import me.lucko.fabric.api.permissions.v0.Permissions;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
