@@ -43,8 +43,6 @@ public class AntiRaidFarmMixin {
             //config's timer
             int time = AntiRaidfarm.getConfig().waitTime;
 
-            System.out.println(time);
-
             //if cooldown then return true
             if (diff < time) {
                 //cancel method

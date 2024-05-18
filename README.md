@@ -13,7 +13,7 @@ fair and balanced gameplay experience.
 ## Configuration
 
 The delay timer can be configured in the mod's configuration file. By default, the configuration file is located in
-the `config` folder of your Minecraft directory. Edit the file to adjust the delay between raids:
+the `config` folder of your Minecraft directory. Edit the file to adjust the delay (in second) between raids:
 
 ```json
 {
