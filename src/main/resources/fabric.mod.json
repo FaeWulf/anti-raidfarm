@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "anti-raidfarm",
+  "version": "${version}",
+  "name": "Anti raidfarm",
+  "description": "Simple mod to set a configurable delay times between raids. Main purpose is to prevent OP raid farm.",
+  "authors": [
+    "Faewulf"
+  ],
+  "contact": {
+    "homepage": "https://faewulf.xyz/",
+    "sources": "https://github.com/FaeWulf/fabric-example-mod"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/anti-raidfarm/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "faewulf.antiraidfarm.AntiRaidfarm"
+    ],
+    "client": [
+      "faewulf.antiraidfarm.AntiRaidfarmClient"
+    ]
+  },
+  "mixins": [
+    "anti-raidfarm.mixins.json",
+    {
+      "config": "anti-raidfarm.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "minecraft": "~1.20.6",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

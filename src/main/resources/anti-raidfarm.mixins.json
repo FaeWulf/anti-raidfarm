@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "faewulf.antiraidfarm.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AntiRaidFarmMixin",
+    "PlayerDataSaver",
+    "RaidMixin"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
