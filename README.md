@@ -35,3 +35,10 @@ antiraidfarm.bypass: allow to bypass delay timer
 
 Note: if no permission manager mod installed, then this bypass permission will bypass if player's permission level equal
 or greater than 3.
+
+## 👍Support
+
+For support, feature requests, or bug reports, please visit the mod's GitHub issues page.
+or join my Discord server: [link](https://discord.gg/xZneCTcEvb)
+
+You can use this mod in modpack as long as giving proper credits.
