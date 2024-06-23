@@ -1,19 +1,25 @@
 # Anti-RaidFarm Mod
 
-**Anti-RaidFarm** mod for Fabric Minecraft is designed to prevent players from exploiting infinite bad omen loops in
+## 📖Overview
+
+**Anti-RaidFarm** mod is designed to prevent players from exploiting infinite bad omen loops in
 raid farms. This mod introduces a configurable delay timer to manage and restrict the initiation of raids, ensuring a
 fair and balanced gameplay experience.
 
-## Installation
+After player started a raid, a timer will be set for that player, prevent from trigger other raid during the cooldown
+timer.
+You can check the timer by holding an Ominous Bottle.
 
-1. **Download the Mod**: Ensure you have the Fabric mod loader installed for Minecraft version 1.20.6.
-2. **Install the Mod**: Place the `Anti-RaidFarm.jar` file into the `mods` folder in your Minecraft directory.
-3. **Run the Game**: Launch Minecraft using the Fabric profile to activate the mod.
+<p align="center">
+ <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/anti-raidfarm/ss.png?raw=true" alt="example">
+</p>
 
-## Configuration
+## ⚙️Configuration
 
 The delay timer can be configured in the mod's configuration file. By default, the configuration file is located in
-the `config` folder of your Minecraft directory. Edit the file to adjust the delay (in second) between raids:
+the `config` folder of your Minecraft directory.
+
+Edit the file to adjust the delay (in second) between raids:
 
 ```json
 {
@@ -21,8 +27,11 @@ the `config` folder of your Minecraft directory. Edit the file to adjust the del
 }
 ```
 
-## Permission
+## 🪧Permission
 
 ```
 antiraidfarm.bypass: allow to bypass delay timer
 ```
+
+Note: if no permission manager mod installed, then this bypass permission will bypass if player's permission level equal
+or greater than 3.

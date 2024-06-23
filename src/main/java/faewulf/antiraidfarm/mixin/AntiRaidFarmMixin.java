@@ -3,63 +3,66 @@ package faewulf.antiraidfarm.mixin;
 import faewulf.antiraidfarm.AntiRaidfarm;
 import faewulf.antiraidfarm.utils.IPlayerDataSaver;
 import faewulf.antiraidfarm.utils.RaidData;
+import faewulf.antiraidfarm.utils.converter;
 import faewulf.antiraidfarm.utils.permissions;
 import me.lucko.fabric.api.permissions.v0.Permissions;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-
 //Inject into BadOmenStatusEffect class
 @Mixin(targets = {"net.minecraft.entity.effect.BadOmenStatusEffect"})
 public class AntiRaidFarmMixin {
-    @Inject(at = @At("HEAD"), method = "tryStartRaid", cancellable = true)
-    private void tryStartRaid(ServerPlayerEntity player, ServerWorld world, CallbackInfoReturnable<Boolean> info) {
 
-        //get player nbt data of the mod syste
-        String date = RaidData.getData((IPlayerDataSaver) player);
+    @Inject(
+            method = "applyUpdateEffect",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/server/network/ServerPlayerEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;)Z",
+                    shift = At.Shift.BEFORE
+            )
+            , cancellable = true
+    )
+    private void applyUpdateEffectInject(LivingEntity entity, int amplifier, CallbackInfoReturnable<Boolean> cir) {
+        if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
+            //if player has by pass permission, then cancel this method
+            if (Permissions.check(serverPlayerEntity, permissions.BY_PASS, 3)) {
+                return;
+            }
 
-        //if player has bu pass permission, then cancel this method
-        if (Permissions.check(player, permissions.BY_PASS)) {
-            return;
-        }
+            Long lastRaidTime = RaidData.getData((IPlayerDataSaver) serverPlayerEntity);
 
+            //if no cooldown
+            if (lastRaidTime == null || lastRaidTime == -1L)
+                return;
 
-        if (!date.isEmpty()) {
             //get current local time and player's timeStamp
-            LocalDateTime now = LocalDateTime.now();
-            Duration duration = Duration.between(LocalDateTime.parse(date), now);
+            Long currentWorldTime = serverPlayerEntity.getServerWorld().getTime();
 
-            long diff = duration.getSeconds();
+            long diff = currentWorldTime - lastRaidTime;
             //check if > config's delay
 
             //config's timer
-            int time = AntiRaidfarm.getConfig().waitTime;
+            int time = AntiRaidfarm.getConfig().waitTime * 20;
 
             //if cooldown then return true
             if (diff < time) {
-                //cancel method
-
                 //convert time left to human readable time format
-                long timeLeft = time - diff;
-                String readableTime = String.format("%dm%02ds", timeLeft / 60, timeLeft % 60);
+                String timeLeft = converter.convertTicksToTime(time - diff);
 
                 //message to send to the player
-                Text message = Text.literal("You can start another raid after " + readableTime);
-                player.sendMessage(message, true);
+                Text message = Text.literal("You can start another raid after " + timeLeft);
+                serverPlayerEntity.sendMessage(message, true);
 
                 //injects
-                info.setReturnValue(true);
-                info.cancel();
-            }
+                cir.setReturnValue(true);
+                cir.cancel();
+            } else
+                RaidData.resetData((IPlayerDataSaver) serverPlayerEntity);
         }
-
     }
 }

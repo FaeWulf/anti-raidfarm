@@ -5,7 +5,8 @@
   "mixins": [
     "AntiRaidFarmMixin",
     "PlayerDataSaver",
-    "RaidMixin"
+    "RaidMixin",
+    "ServerPlayerEntityMixin"
   ],
   "server": [
   ],

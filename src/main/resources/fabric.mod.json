@@ -3,13 +3,21 @@
   "id": "anti-raidfarm",
   "version": "${version}",
   "name": "Anti raidfarm",
-  "description": "Simple mod to set a configurable delay times between raids. Main purpose is to prevent OP raid farm.",
+  "description": "Simple mod to set a configurable delay times between raids. Main purpose is to prevent raid farm being to overpowered.",
   "authors": [
     "Faewulf"
   ],
   "contact": {
     "homepage": "https://faewulf.xyz/",
-    "sources": "https://github.com/FaeWulf/anti-raidfarm"
+    "sources": "https://github.com/FaeWulf/anti-raidfarm",
+    "issues": "https://github.com/FaeWulf/anti-raidfarm/issues"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/xZneCTcEvb"
+      }
+    }
   },
   "license": "CC0-1.0",
   "icon": "assets/anti-raidfarm/icon.png",
@@ -31,11 +39,8 @@
   ],
   "depends": {
     "fabricloader": ">=0.15.11",
-    "minecraft": "~1.20.6",
+    "minecraft": "~1.21",
     "java": ">=21",
     "fabric-api": "*"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }
